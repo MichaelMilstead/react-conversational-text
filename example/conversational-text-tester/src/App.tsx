@@ -9,6 +9,9 @@ function App() {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       <ConversationalText
