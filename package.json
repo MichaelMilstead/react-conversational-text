@@ -1,0 +1,11 @@
+{
+  "name": "react-conversational-text",
+  "version": "0.0.1",
+  "description": "text that prints as if typed by a person",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
