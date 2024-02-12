@@ -1,13 +1,32 @@
 {
   "name": "react-conversational-text",
-  "version": "0.0.1",
-  "description": "text that prints as if typed by a person",
+  "version": "1.0.0",
+  "description": "Text that prints as if typed by a person.",
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc",
     "test": "jest"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelMilstead/react-conversational-text"
+  },
+  "bugs": {
+    "url": "https://github.com/MichaelMilstead/react-conversational-text/issues"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "conversational",
+    "text",
+    "typing",
+    "animation",
+    "print"
+  ],
+  "author": "Michael Milstead",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^29.5.12",
