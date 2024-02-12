@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useState } from "react";
 
 interface ConversationalTextProps {
   messages: string[];
@@ -8,6 +8,7 @@ interface ConversationalTextProps {
   delayBetweenMessageMs?: number;
   addSpaceBetweenMessages?: boolean;
   lineBreakBetweenMessages?: boolean;
+  style?: CSSProperties;
 }
 
 export default function ConversationalText({
@@ -18,6 +19,7 @@ export default function ConversationalText({
   delayBetweenMessageMs = 1000,
   addSpaceBetweenMessages = true,
   lineBreakBetweenMessages = false,
+  style,
 }: ConversationalTextProps) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [validLoopId, setValidLoopId] = useState<string>("");
@@ -80,5 +82,7 @@ export default function ConversationalText({
     printMessages(validLoopId);
   }, [validLoopId]);
 
-  return <span style={{ whiteSpace: "pre-wrap" }}>{currentMessage}</span>;
+  return (
+    <span style={{ whiteSpace: "pre-wrap", ...style }}>{currentMessage}</span>
+  );
 }

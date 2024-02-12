@@ -9,7 +9,6 @@ function App() {
         height: "100vh",
         width: "100%",
         backgroundColor: "black",
-        color: "gold",
       }}
     >
       <ConversationalText
@@ -18,6 +17,7 @@ function App() {
           "However, this is the second message.",
         ]}
         lineBreakBetweenMessages={true}
+        style={{ color: "gold" }}
       />
     </div>
   );
