@@ -3,6 +3,7 @@
     "target": "es2016",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "jsx": "preserve",
     "module": "commonjs",
     "rootDir": "./src",
     "declaration": true,
