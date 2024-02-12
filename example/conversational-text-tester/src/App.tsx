@@ -16,11 +16,16 @@ function App() {
     >
       <ConversationalText
         messages={[
-          "This is the first message.",
-          "However, this is the second message.",
+          "This component will print text as if it were being typed, and even pauses for commas!",
+          "It will also print multiple messages, with a delay between them.",
         ]}
         lineBreakBetweenMessages={true}
-        style={{ color: "gold" }}
+        style={{
+          color: "gold",
+          fontFamily: "math",
+          padding: 20,
+          textAlign: "left",
+        }}
       />
     </div>
   );
