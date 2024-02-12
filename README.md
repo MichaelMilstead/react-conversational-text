@@ -1,5 +1,7 @@
 A React component that prints messages one character at a time, as if typed by a person.
 
+![Demo gif](https://media.giphy.com/media/dqwE5hjgTuhOaU6OSt/giphy.gif)
+
 ## Installation
 
 ```shell
