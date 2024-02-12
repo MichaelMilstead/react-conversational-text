@@ -12,7 +12,7 @@ interface ConversationalTextProps {
 
 export default function ConversationalText({
   messages,
-  delayBetweenCharactersMs = 30,
+  delayBetweenCharactersMs = 40,
   delayAfterCommaMs = 500,
   delayAfterSentenceMs = 500,
   delayBetweenMessageMs = 1000,
