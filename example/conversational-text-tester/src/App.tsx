@@ -1,3 +1,4 @@
+import ConversationalText from "react-conversational-text";
 import "./App.css";
 
 function App() {
@@ -5,7 +6,13 @@ function App() {
     <div
       className="App"
       style={{ height: "100vh", width: "100%", backgroundColor: "black" }}
-    ></div>
+    >
+      <ConversationalText
+        messages={[
+          "This is the first message. I think that... it is a great message.",
+        ]}
+      />
+    </div>
   );
 }
 
