@@ -6,6 +6,8 @@ interface ConversationalTextProps {
   delayAfterCommaMs?: number;
   delayAfterSentenceMs?: number;
   delayBetweenMessageMs?: number;
+  addSpaceBetweenMessages?: boolean;
+  lineBreakBetweenMessages?: boolean;
 }
 
 export default function ConversationalText({
@@ -14,6 +16,8 @@ export default function ConversationalText({
   delayAfterCommaMs = 500,
   delayAfterSentenceMs = 500,
   delayBetweenMessageMs = 1000,
+  addSpaceBetweenMessages = true,
+  lineBreakBetweenMessages = false,
 }: ConversationalTextProps) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [validLoopId, setValidLoopId] = useState<string>("");
@@ -28,7 +32,6 @@ export default function ConversationalText({
     new Promise((resolve) => setTimeout(resolve, ms));
 
   const printMessages = async (id: string) => {
-    console.log(validLoopId);
     let currentMessageIndex = 0;
     while (currentMessageIndex < messages.length) {
       let currentCharIndex = 0;
@@ -48,27 +51,34 @@ export default function ConversationalText({
           delay += delayAfterSentenceMs;
         }
 
-        setCurrentMessage(
-          messages[currentMessageIndex].substring(0, currentCharIndex + 1)
-        );
+        setCurrentMessage((prev) => prev + currentChar);
         currentCharIndex++;
         await wait(delay);
       }
       currentMessageIndex++;
+
+      if (lineBreakBetweenMessages) {
+        setCurrentMessage((prev) => prev + "\n");
+      } else if (addSpaceBetweenMessages) {
+        setCurrentMessage((prev) => prev + " ");
+      }
+      await wait(delayBetweenMessageMs);
     }
   };
 
   useEffect(() => {
     startCancellableLoop();
+    return () => {
+      setValidLoopId("");
+    };
   }, []);
 
   useEffect(() => {
+    if (validLoopId === "") {
+      return;
+    }
     printMessages(validLoopId);
   }, [validLoopId]);
 
-  return (
-    <div>
-      <p>{currentMessage}</p>
-    </div>
-  );
+  return <span>{currentMessage}</span>;
 }

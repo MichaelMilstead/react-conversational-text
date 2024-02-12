@@ -14,8 +14,10 @@ function App() {
     >
       <ConversationalText
         messages={[
-          "This is the first message. I think that... it is a great message.",
+          "This is the first message.",
+          "However, this is the second message.",
         ]}
+        lineBreakBetweenMessages={true}
       />
     </div>
   );
