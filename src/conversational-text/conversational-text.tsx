@@ -4,7 +4,7 @@ interface ConversationalTextProps {
   messages: string[];
   delayBetweenCharactersMs?: number;
   delayAfterCommaMs?: number;
-  delayAfterPeriodMs?: number;
+  delayAfterSentenceMs?: number;
   delayBetweenMessageMs?: number;
 }
 
@@ -12,41 +12,59 @@ export default function ConversationalText({
   messages,
   delayBetweenCharactersMs = 30,
   delayAfterCommaMs = 500,
-  delayAfterPeriodMs = 500,
+  delayAfterSentenceMs = 500,
   delayBetweenMessageMs = 1000,
 }: ConversationalTextProps) {
-  const [currentMessageIndex, setCurrentMessageIndex] = useState(0);
   const [currentMessage, setCurrentMessage] = useState("");
-  const [currentCharacterIndex, setCurrentCharacterIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [validLoopId, setValidLoopId] = useState<string>("");
+
+  const startCancellableLoop = (): string => {
+    const id = Date.now().toString();
+    setValidLoopId(id);
+    return id;
+  };
+
+  const wait = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
+  const printMessages = async (id: string) => {
+    console.log(validLoopId);
+    let currentMessageIndex = 0;
+    while (currentMessageIndex < messages.length) {
+      let currentCharIndex = 0;
+      while (currentCharIndex < messages[currentMessageIndex].length) {
+        if (!(validLoopId === id)) {
+          return;
+        }
+        const currentChar = messages[currentMessageIndex][currentCharIndex];
+        let delay = delayBetweenCharactersMs;
+        if (currentChar === ",") {
+          delay += delayAfterCommaMs;
+        } else if (
+          currentChar === "." ||
+          currentChar === "!" ||
+          currentChar === "?"
+        ) {
+          delay += delayAfterSentenceMs;
+        }
+
+        setCurrentMessage(
+          messages[currentMessageIndex].substring(0, currentCharIndex + 1)
+        );
+        currentCharIndex++;
+        await wait(delay);
+      }
+      currentMessageIndex++;
+    }
+  };
 
   useEffect(() => {
-    if (isTyping) {
-      if (currentCharacterIndex < messages[currentMessageIndex].length) {
-        const currentCharacter =
-          messages[currentMessageIndex][currentCharacterIndex];
-        setCurrentMessage((prev) => prev + currentCharacter);
-        setCurrentCharacterIndex((prev) => prev + 1);
-        let delay = delayBetweenCharactersMs;
-        if (currentCharacter === ",") {
-          delay = delayAfterCommaMs;
-        } else if (currentCharacter === ".") {
-          delay = delayAfterPeriodMs;
-        }
-        setTimeout(() => {
-          setIsTyping(true);
-        }, delay);
-      } else {
-        setIsTyping(false);
-        setTimeout(() => {
-          setCurrentMessageIndex((prev) => prev + 1);
-          setCurrentMessage("");
-          setCurrentCharacterIndex(0);
-          setIsTyping(true);
-        }, delayBetweenMessageMs);
-      }
-    }
-  }, [currentCharacterIndex, currentMessageIndex, isTyping]);
+    startCancellableLoop();
+  }, []);
+
+  useEffect(() => {
+    printMessages(validLoopId);
+  }, [validLoopId]);
 
   return (
     <div>

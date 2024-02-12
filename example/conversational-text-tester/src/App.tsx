@@ -5,7 +5,12 @@ function App() {
   return (
     <div
       className="App"
-      style={{ height: "100vh", width: "100%", backgroundColor: "black" }}
+      style={{
+        height: "100vh",
+        width: "100%",
+        backgroundColor: "black",
+        color: "gold",
+      }}
     >
       <ConversationalText
         messages={[
