@@ -80,5 +80,5 @@ export default function ConversationalText({
     printMessages(validLoopId);
   }, [validLoopId]);
 
-  return <span>{currentMessage}</span>;
+  return <span style={{ whiteSpace: "pre-wrap" }}>{currentMessage}</span>;
 }
