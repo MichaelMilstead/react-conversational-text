@@ -46,7 +46,7 @@ Each of the following props is optional and can be used to customize the behavio
 
 ## Example Usage
 
-To see an example react app using this package, checkout [this repository.](https://github.com/MichaelMilstead/react-conversational-text/tree/main/example/conversational-text-tester)
+To see an example react app using this package, check out [this repository.](https://github.com/MichaelMilstead/react-conversational-text/tree/main/example/conversational-text-tester)
 
 ## Issues and Feature Requests
 
