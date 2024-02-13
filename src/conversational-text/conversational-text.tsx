@@ -1,13 +1,28 @@
 import React, { CSSProperties, useEffect, useState } from "react";
 
 interface ConversationalTextProps {
+  /** Array of messages to display */
   messages: string[];
+
+  /** Delay in milliseconds between each character. Default is 40 */
   delayBetweenCharactersMs?: number;
+
+  /** Additional delay in milliseconds after a comma. Default is 500 */
   delayAfterCommaMs?: number;
+
+  /** Additional delay in milliseconds after a sentence (period, exclamation mark, or question mark). Default is 500 */
   delayAfterSentenceMs?: number;
+
+  /** Delay in milliseconds between each message. Default is 1000 */
   delayBetweenMessageMs?: number;
+
+  /** If true, adds a space between messages. Default is true */
   addSpaceBetweenMessages?: boolean;
+
+  /** If true, adds a line break between messages. Default is true */
   lineBreakBetweenMessages?: boolean;
+
+  /** CSS properties to style the component */
   style?: CSSProperties;
 }
 
