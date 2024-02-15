@@ -22,6 +22,12 @@ interface ConversationalTextProps {
   /** If true, adds a line break between messages. Default is true */
   lineBreakBetweenMessages?: boolean;
 
+  /** Callback function to be called when each input message is completed */
+  onMessageComplete?: (messageIndex: number) => void;
+
+  /** Callback function to be called when all messages are completed */
+  onAllMessagesComplete?: () => void;
+
   /** CSS properties to style the component */
   style?: CSSProperties;
 }
@@ -34,6 +40,8 @@ export default function ConversationalText({
   delayBetweenMessageMs = 1000,
   addSpaceBetweenMessages = true,
   lineBreakBetweenMessages = false,
+  onMessageComplete = (index: number) => {},
+  onAllMessagesComplete = () => {},
   style,
 }: ConversationalTextProps) {
   const [currentMessage, setCurrentMessage] = useState("");
@@ -72,6 +80,8 @@ export default function ConversationalText({
         currentCharIndex++;
         await wait(delay);
       }
+
+      onMessageComplete(currentMessageIndex);
       currentMessageIndex++;
 
       if (lineBreakBetweenMessages) {
@@ -81,6 +91,8 @@ export default function ConversationalText({
       }
       await wait(delayBetweenMessageMs);
     }
+
+    onAllMessagesComplete();
   };
 
   useEffect(() => {
