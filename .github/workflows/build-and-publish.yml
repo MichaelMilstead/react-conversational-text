@@ -1,0 +1,33 @@
+name: Build and Publish npm package
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionType:
+        description: "Version type (patch, minor, major)"
+        required: true
+        default: "patch"
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "18"
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        run: npm install
+      - name: Bump version and Publish
+        run: |
+          npm version ${{ github.event.inputs.versionType }}
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
