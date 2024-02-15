@@ -32,10 +32,6 @@ function App() {
 export default App;
 ```
 
-### Usage in NextJS
-
-Since this component internally uses `useState`, make sure you are using it in a "Client Component" by adding `"use client"` to the top of the containing file. More info [here.](https://nextjs.org/docs/app/building-your-application/rendering/client-components#using-client-components-in-nextjs)
-
 ## Props
 
 - `messages` (string[]): The list of strings you want to be printed.
