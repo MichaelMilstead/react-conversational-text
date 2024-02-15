@@ -1,4 +1,4 @@
-name: Build, Bump, Publish npm package
+name: Build Bump Publish npm package
 
 on:
   push:
