@@ -48,6 +48,10 @@ Each of the following props is optional and can be used to customize the behavio
 - `delayBetweenMessageMs` (number): The delay in milliseconds before starting to print the next message. Default is 1000ms.
 - `addSpaceBetweenMessages` (boolean): If true, adds a space between messages. Default is true.
 - `lineBreakBetweenMessages` (boolean): If true, adds a line break between messages. Default is false.
+- `onMessageComplete` (function): A callback function that is called when each input message is completed. The function receives the index of the completed message as a parameter.
+  Example: `onMessageComplete={(messageIndex) => { /* handle completion of message */ }}`
+- `onAllMessagesComplete` (function): A callback function that is called when all messages have been completed. This function does not receive any parameters.
+  Example: `onAllMessagesComplete={() => { /* handle completion of all messages */ }}`
 - `style` (CSSProperties): Custom CSS styles to apply to the span containing the messages. This is an object that can contain any valid CSS property.
 
 ## Example Usage
