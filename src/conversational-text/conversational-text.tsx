@@ -84,11 +84,12 @@ export default function ConversationalText({
   };
 
   useEffect(() => {
+    setCurrentMessage("");
     startCancellableLoop();
     return () => {
       setValidLoopId("");
     };
-  }, []);
+  }, [messages]);
 
   useEffect(() => {
     if (validLoopId === "") {
