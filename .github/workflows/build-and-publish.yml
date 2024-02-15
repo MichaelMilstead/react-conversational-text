@@ -25,6 +25,7 @@ jobs:
         run: npm install
       - name: Bump version and Publish
         run: |
+          git status
           npm version ${{ github.event.inputs.versionType || 'patch'}}
           npm publish
         env:
