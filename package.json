@@ -1,7 +1,7 @@
 {
   "name": "react-conversational-text",
   "version": "1.1.7",
-  "description": "Text that prints as if typed by a person.",
+  "description": "Text that prints as if typed by a person",
   "main": "dist/index.js",
   "files": [
     "dist"
