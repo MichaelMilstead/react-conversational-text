@@ -21,6 +21,10 @@ jobs:
         with:
           node-version: "18"
           registry-url: "https://registry.npmjs.org"
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "action@github.com"
       - name: Install dependencies
         run: npm install
       - name: Bump version and Publish
