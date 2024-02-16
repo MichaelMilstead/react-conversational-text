@@ -1,15 +1,10 @@
-name: Build Bump Publish npm package
+name: Build and Publish npm package
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
-    inputs:
-      versionType:
-        description: "Version type (patch, minor, major)"
-        required: true
-        default: "patch"
 
 jobs:
   build-and-publish:
@@ -27,9 +22,9 @@ jobs:
           git config --global user.email "action@github.com"
       - name: Install dependencies
         run: npm install
-      - name: Bump version and Publish
+      - name: Build and Publish
         run: |
-          npm version ${{ github.event.inputs.versionType || 'patch'}}
+          npm build
           npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
