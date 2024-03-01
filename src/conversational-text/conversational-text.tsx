@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface ConversationalTextProps {
   /** Array of messages to display */
@@ -48,7 +49,7 @@ export default function ConversationalText({
   const validLoopIdRef = useRef<string>("");
 
   const startCancellableLoop = (): string => {
-    const id = Date.now().toString();
+    const id = uuidv4();
     validLoopIdRef.current = id;
     printMessages(id);
     return id;
