@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
 
 interface ConversationalTextProps {
   /** Array of messages to display */
@@ -45,11 +45,12 @@ export default function ConversationalText({
   style,
 }: ConversationalTextProps) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [validLoopId, setValidLoopId] = useState<string>("");
+  const validLoopIdRef = useRef<string>("");
 
   const startCancellableLoop = (): string => {
     const id = Date.now().toString();
-    setValidLoopId(id);
+    validLoopIdRef.current = id;
+    printMessages(id);
     return id;
   };
 
@@ -61,7 +62,7 @@ export default function ConversationalText({
     while (currentMessageIndex < messages.length) {
       let currentCharIndex = 0;
       while (currentCharIndex < messages[currentMessageIndex].length) {
-        if (!(validLoopId === id)) {
+        if (validLoopIdRef.current !== id) {
           return;
         }
         const currentChar = messages[currentMessageIndex][currentCharIndex];
@@ -99,16 +100,9 @@ export default function ConversationalText({
     setCurrentMessage("");
     startCancellableLoop();
     return () => {
-      setValidLoopId("");
+      validLoopIdRef.current = "";
     };
   }, [JSON.stringify(messages)]);
-
-  useEffect(() => {
-    if (validLoopId === "") {
-      return;
-    }
-    printMessages(validLoopId);
-  }, [validLoopId]);
 
   return (
     <span style={{ whiteSpace: "pre-wrap", ...style }}>{currentMessage}</span>
