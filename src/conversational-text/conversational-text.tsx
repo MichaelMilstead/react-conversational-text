@@ -101,7 +101,7 @@ export default function ConversationalText({
     return () => {
       setValidLoopId("");
     };
-  }, [messages]);
+  }, [JSON.stringify(messages)]);
 
   useEffect(() => {
     if (validLoopId === "") {
