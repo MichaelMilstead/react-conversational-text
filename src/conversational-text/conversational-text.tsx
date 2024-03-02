@@ -1,4 +1,5 @@
-import React, { CSSProperties, useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 interface ConversationalTextProps {
   /** Array of messages to display */
@@ -45,11 +46,12 @@ export default function ConversationalText({
   style,
 }: ConversationalTextProps) {
   const [currentMessage, setCurrentMessage] = useState("");
-  const [validLoopId, setValidLoopId] = useState<string>("");
+  const validLoopIdRef = useRef<string>("");
 
   const startCancellableLoop = (): string => {
-    const id = Date.now().toString();
-    setValidLoopId(id);
+    const id = uuidv4();
+    validLoopIdRef.current = id;
+    printMessages(id);
     return id;
   };
 
@@ -61,7 +63,7 @@ export default function ConversationalText({
     while (currentMessageIndex < messages.length) {
       let currentCharIndex = 0;
       while (currentCharIndex < messages[currentMessageIndex].length) {
-        if (!(validLoopId === id)) {
+        if (validLoopIdRef.current !== id) {
           return;
         }
         const currentChar = messages[currentMessageIndex][currentCharIndex];
@@ -99,16 +101,9 @@ export default function ConversationalText({
     setCurrentMessage("");
     startCancellableLoop();
     return () => {
-      setValidLoopId("");
+      validLoopIdRef.current = "";
     };
-  }, [messages]);
-
-  useEffect(() => {
-    if (validLoopId === "") {
-      return;
-    }
-    printMessages(validLoopId);
-  }, [validLoopId]);
+  }, [JSON.stringify(messages)]);
 
   return (
     <span style={{ whiteSpace: "pre-wrap", ...style }}>{currentMessage}</span>
